@@ -31,6 +31,11 @@ class ScheduleController {
         model: User,
         as: 'user',
         attributes: ['name']
+      },
+      {
+        model: File,
+        as: 'tattoo',
+        attributes: ['path', 'url']
       }],
       order: ['date']
     });

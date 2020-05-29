@@ -28,7 +28,7 @@ class AppointmentController {
           as: 'avatar',
           attributes: ['id', 'path', 'url']
         }]
-      }]
+      }],
     });
 
     return res.json(appointments);
@@ -36,7 +36,8 @@ class AppointmentController {
 
   async store(req, res){
     const schema = Yup.object().shape({
-      provider_id: Yup.number().required(),
+      user_id: Yup.number().required(),
+      tattoo_id: Yup.number().required(),
       date: Yup.date().required(),
     });
 
@@ -44,15 +45,7 @@ class AppointmentController {
       return res.status(400).json({error: 'Validation error.'})
     }
 
-    const {provider_id, date} = req.body;
-
-    /*
-    Check if provider_id is a provider
-    */
-    const isProvider = await User.findOne({where: {id: provider_id, provider: true}});
-
-    if (!isProvider)
-      return res.status(401).json({error: 'You cant only create appointment with providers'});
+    const {user_id, date, tattoo_id} = req.body;
 
     /**
      * Check for past date
@@ -65,18 +58,11 @@ class AppointmentController {
     }
     
     /**
-     * Check user_id !== provider_id
-     */
-    if (provider_id === req.userId)
-      return res.status(400).json({error: 'It is not possible schedule for yourself.'})
-
-
-    /**
      * Check date avaliability
      */
     const checkAvaliability = await Appointment.findOne({
       where: {
-        provider_id,
+        provider_id: req.userId,
         canceled_at: null,
         date: hourStart,
       }
@@ -87,8 +73,9 @@ class AppointmentController {
     }
 
     const appointment = await Appointment.create({
-      user_id: req.userId,
-      provider_id,
+      provider_id: req.userId,
+      user_id,
+      tattoo_id,
       date: hourStart,
     });
 
@@ -96,11 +83,11 @@ class AppointmentController {
      * Notify appointment provider
      */
     const formatedDate = format(hourStart, "'dia ' dd ' de ' MMMM', às ' H:mm'h'", {locale: ptBr});
-    const user = await User.findByPk(req.userId);
-
+    const user = await User.findByPk(user_id);
+    
     await Notification.create({
       content: `Novo agendamento de ${user.name} ${formatedDate}`,
-      user: provider_id
+      user: req.userId
     })
 
     return res.json(appointment);
@@ -119,7 +106,7 @@ class AppointmentController {
       }]
     });
 
-    if (appointment.user_id !== req.userId)
+    if (appointment.provider_id !== req.userId)
       return res.status(400).json({error: 'You don´t have permission to cancel this appointment.'})
 
     const dateWithSub = subHours(appointment.date, 2);
@@ -132,18 +119,17 @@ class AppointmentController {
     
     // return res.json(appointment);
     // console.log(appointment);
-    await Mail.sendMail({
-      to: `${appointment.provider.name} <${appointment.provider.email}>`,
-      subject: 'Agendamento cancelado',
-      template: 'cancellation',
-      context: {
-        provider: appointment.provider.name,
-        user: appointment.user.name,
-        date: format(appointment.date, "'dia ' dd ' de ' MMMM', às ' H:mm'h'", {locale: ptBr})
-      }
-    });
+    // await Mail.sendMail({
+    //   to: `${appointment.provider.name} <${appointment.provider.email}>`,
+    //   subject: 'Agendamento cancelado',
+    //   template: 'cancellation',
+    //   context: {
+    //     provider: appointment.provider.name,
+    //     user: appointment.user.name,
+    //     date: format(appointment.date, "'dia ' dd ' de ' MMMM', às ' H:mm'h'", {locale: ptBr})
+    //   }
+    // });
    
-
     return res.json(appointment);
     
   }
