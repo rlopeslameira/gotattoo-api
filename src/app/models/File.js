@@ -8,7 +8,7 @@ class File extends Model{
       url: {
         type: Sequelize.VIRTUAL,
         get() {
-          return `${process.env.APP_URL}/files/${this.path}`
+          return `https://gotattoo.herokuapp.com/files/${this.path}`
         }
       }
     }, {
