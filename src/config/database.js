@@ -1,5 +1,3 @@
-require('dotenv/config');
-
 // Host Heroku Free plan
 module.exports = {
   dialect: 'mysql',
