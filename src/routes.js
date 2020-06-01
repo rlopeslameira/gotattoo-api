@@ -1,6 +1,5 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 import multer from 'multer';
-import path from 'path';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -17,14 +16,6 @@ import multerConfig from './config/multer';
 
 const routes = new Router();
 const upload = multer(multerConfig);
-
-routes.get('/', (req, res) => {
-
-  return res.json({ message: 'Server UP' });
-
-});
-
-routes.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
 
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
