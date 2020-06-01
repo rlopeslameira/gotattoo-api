@@ -37,7 +37,7 @@ class AppointmentController {
   async store(req, res) {
     const schema = Yup.object().shape({
       user_id: Yup.number().required(),
-      tattoo_id: Yup.number().required(),
+      tattoo_id: Yup.number(),
       date: Yup.date().required(),
     });
 
@@ -81,13 +81,13 @@ class AppointmentController {
     /**
      * Notify appointment provider
      */
-    const formatedDate = format(hourStart, "'dia ' dd ' de ' MMMM', às ' H:mm'h'", { locale: ptBr });
-    const user = await User.findByPk(user_id);
+    // const formatedDate = format(hourStart, "'dia ' dd ' de ' MMMM', às ' H:mm'h'", { locale: ptBr });
+    // const user = await User.findByPk(user_id);
 
-    await Notification.create({
-      content: `Novo agendamento de ${user.name} ${formatedDate}`,
-      user: req.userId
-    })
+    // await Notification.create({
+    //   content: `Novo agendamento de ${user.name} ${formatedDate}`,
+    //   user: req.userId
+    // })
 
     return res.json(appointment);
   }
