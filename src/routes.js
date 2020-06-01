@@ -30,6 +30,7 @@ routes.get('/providers', ProviderController.index);
 routes.get('/providers/:providerId/avaliable', AvaliableController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
+// routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
