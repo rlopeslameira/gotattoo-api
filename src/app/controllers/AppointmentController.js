@@ -68,7 +68,7 @@ class AppointmentController {
     })
 
     if (checkAvaliability) {
-      return res.status(400).json({ error: 'Appointment date is not avaliable.' });
+      return res.json({ error: 'Appointment date is not avaliable.' });
     }
 
     const appointment = await Appointment.create({
@@ -106,12 +106,12 @@ class AppointmentController {
     });
 
     if (appointment.provider_id !== req.userId)
-      return res.status(400).json({ error: 'You don´t have permission to cancel this appointment.' })
+      return res.json({ error: 'You don´t have permission to cancel this appointment.' })
 
     const dateWithSub = subHours(appointment.date, 2);
 
-    if (isBefore(dateWithSub, new Date()))
-      return res.status(401).json({ error: 'You can olny cancel appointments 2 hours in advance.' })
+    // if (isBefore(dateWithSub, new Date()))
+    //   return res.json({ error: 'Você só pode cancelar agendamentos com 2 horas de antecedência.' })
 
     appointment.canceled_at = new Date();
     await appointment.save();
