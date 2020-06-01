@@ -1,5 +1,6 @@
-import {Router} from 'express';
+import express, { Router } from 'express';
 import multer from 'multer';
+import path from 'path';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -18,15 +19,15 @@ const routes = new Router();
 const upload = multer(multerConfig);
 
 routes.get('/', (req, res) => {
-  
-  return res.json({message: 'Server UP'});
+
+  return res.json({ message: 'Server UP' });
 
 });
 
+routes.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
+
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
-
-routes.post('/files', upload.single('file'), FileController.store);
 
 routes.use(authMiddleware);
 
@@ -37,6 +38,7 @@ routes.post('/clients', ClientController.store);
 routes.get('/providers', ProviderController.index);
 routes.get('/providers/:providerId/avaliable', AvaliableController.index);
 
+routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
