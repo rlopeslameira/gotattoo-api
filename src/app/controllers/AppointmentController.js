@@ -1,8 +1,6 @@
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 import File from '../models/File';
-import Notification from '../schemas/Notification';
-import Mail from '../../lib/Mail';
 
 import { startOfHour, isBefore, parseISO, format, subHours } from 'date-fns';
 import ptBr from 'date-fns/locale/pt-BR';

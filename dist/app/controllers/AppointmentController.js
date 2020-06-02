@@ -1,8 +1,6 @@
 "use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { newObj[key] = obj[key]; } } } newObj.default = obj; return newObj; } } function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }var _Appointment = require('../models/Appointment'); var _Appointment2 = _interopRequireDefault(_Appointment);
 var _User = require('../models/User'); var _User2 = _interopRequireDefault(_User);
 var _File = require('../models/File'); var _File2 = _interopRequireDefault(_File);
-var _Notification = require('../schemas/Notification'); var _Notification2 = _interopRequireDefault(_Notification);
-var _Mail = require('../../lib/Mail'); var _Mail2 = _interopRequireDefault(_Mail);
 
 var _datefns = require('date-fns');
 var _ptBR = require('date-fns/locale/pt-BR'); var _ptBR2 = _interopRequireDefault(_ptBR);

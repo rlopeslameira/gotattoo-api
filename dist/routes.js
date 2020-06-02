@@ -7,7 +7,6 @@ var _FileController = require('./app/controllers/FileController'); var _FileCont
 var _ProviderController = require('./app/controllers/ProviderController'); var _ProviderController2 = _interopRequireDefault(_ProviderController);
 var _AppointmentController = require('./app/controllers/AppointmentController'); var _AppointmentController2 = _interopRequireDefault(_AppointmentController);
 var _ScheduleController = require('./app/controllers/ScheduleController'); var _ScheduleController2 = _interopRequireDefault(_ScheduleController);
-var _NotificationController = require('./app/controllers/NotificationController'); var _NotificationController2 = _interopRequireDefault(_NotificationController);
 var _AvaliableController = require('./app/controllers/AvaliableController'); var _AvaliableController2 = _interopRequireDefault(_AvaliableController);
 var _ClientController = require('./app/controllers/ClientController'); var _ClientController2 = _interopRequireDefault(_ClientController);
 
@@ -37,8 +36,5 @@ routes.get('/appointments', _AppointmentController2.default.index);
 routes.delete('/appointments/:id', _AppointmentController2.default.delete);
 
 routes.get('/schedules', _ScheduleController2.default.index);
-
-routes.get('/notifications', _NotificationController2.default.index);
-routes.put('/notifications/:id', _NotificationController2.default.update);
 
 exports. default = routes;

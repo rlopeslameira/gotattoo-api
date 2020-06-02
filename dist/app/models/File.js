@@ -9,7 +9,11 @@ class File extends _sequelize.Model {
         type: _sequelize2.default.VIRTUAL,
         get() {
           // return `http://localhost:3333/files/${this.path}`
+<<<<<<< HEAD
           return `http://gotattoo.nodejs7003.uni5.net/files/${this.path}`
+=======
+          return `https://gotattoo.herokuapp.com/files/${this.path}`
+>>>>>>> 74926a4e619e8a23b39b229033ea5ea9062b7672
         }
       }
     }, {
