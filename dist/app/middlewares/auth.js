@@ -7,17 +7,17 @@ exports. default = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader)
-    return res.status(401).json({error: 'Token not provided.'})
+    return res.status(401).json({ error: 'Token not provided.' })
 
   const [, token] = authHeader.split(' ');
-  
-  try{
+
+  try {
 
     const decoed = await _util.promisify.call(void 0, _jsonwebtoken2.default.verify)(token, _auth2.default.secret);
     req.userId = decoed.id;
     return next();
 
-  }catch (error){
-    return res.status(401).json({error: 'Token invalid.'})
+  } catch (error) {
+    return res.status(401).json({ error: 'Token invalid.' })
   }
 }

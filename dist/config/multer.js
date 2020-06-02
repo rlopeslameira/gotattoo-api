@@ -6,11 +6,12 @@ exports. default = {
   storage: _multer2.default.diskStorage({
     destination: _path.resolve.call(void 0, __dirname, '..', '..', 'tmp', 'uploads'),
     filename: (req, file, cb) => {
-      _crypto2.default.randomBytes(15, (err, res) => {
-         if (err) return cb(err);
+      _crypto2.default.randomBytes(10, (err, res) => {
+        if (err) return cb(err);
 
-         return cb(null, res.toString('hex') + _path.extname.call(void 0, file.originalname)); 
+        return cb(null, res.toString('hex') + _path.extname.call(void 0, file.originalname));
       })
     }
   })
 }
+

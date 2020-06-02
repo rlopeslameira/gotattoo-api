@@ -6,18 +6,18 @@ var _File = require('../models/File'); var _File2 = _interopRequireDefault(_File
 var _auth = require('../../config/auth'); var _auth2 = _interopRequireDefault(_auth);
 
 class SessionController {
-  async store (req, res){
+  async store(req, res) {
     const schema = Yup.object().shape({
       email: Yup.string().required().email(),
       password: Yup.string().required()
     });
 
 
-    if(!(await schema.isValid(req.body))){
-      return res.status(400).json({error: 'Validation error.'})
+    if (!(await schema.isValid(req.body))) {
+      return res.json({ error: 'Validation error.' })
     }
 
-    const {email, password} = req.body;
+    const { email, password } = req.body;
     const user = await _User2.default.findOne({
       where: { email },
       include: [{
@@ -27,24 +27,24 @@ class SessionController {
       }]
     })
 
-    if (!user){
-      return res.status(401).json({error: 'User not found.'});
+    if (!user) {
+      return res.json({ error: 'Usuário não encontrado.' });
     }
 
-    if (!(await user.checkPassword(password))){
-      return res.status(401).json({error: 'The password does not match.'});
+    if (!(await user.checkPassword(password))) {
+      return res.json({ error: 'Senha incorreta.' });
     }
 
-    const {id, name, avatar, provider} = user;
+    const { id, name, avatar, provider } = user;
     return res.json({
       user: {
         id,
-        name, 
+        name,
         email,
         avatar,
         provider,
       },
-      token: _jsonwebtoken2.default.sign({ id }, _auth2.default.secret, {expiresIn: _auth2.default.expiresIn})
+      token: _jsonwebtoken2.default.sign({ id }, _auth2.default.secret, { expiresIn: _auth2.default.expiresIn })
     });
 
   }
