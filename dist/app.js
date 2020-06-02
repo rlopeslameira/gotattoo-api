@@ -11,7 +11,7 @@ require('./database');
 
 class App {
 
-  constructor(){
+  constructor() {
     this.server = _express2.default.call(void 0, );
 
     this.middlewares();
@@ -22,18 +22,18 @@ class App {
   middlewares() {
     this.server.use(_cors2.default.call(void 0, ));
     this.server.use(_express2.default.json());
-    this.server.use('/files', _express2.default.static(_path2.default.resolve(__dirname, '..', 'tmp', 'uploads')))
+    this.server.use('/files', _express2.default.static(_path2.default.resolve(__dirname, '..', 'tmp', 'uploads')));
   }
 
   routes() {
     this.server.use(_routes2.default);
   }
 
-  exceptionHandler(){
+  exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
       const errors = await new (0, _youch2.default)(err, req).toJSON();
       console.log(errors);
-      
+
       return res.status(500).json(errors);
     })
   }

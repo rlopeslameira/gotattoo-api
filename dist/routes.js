@@ -17,12 +17,6 @@ var _multer3 = require('./config/multer'); var _multer4 = _interopRequireDefault
 const routes = new (0, _express.Router)();
 const upload = _multer2.default.call(void 0, _multer4.default);
 
-routes.get('/', (req, res) => {
-  
-  return res.json({message: 'Server UP'});
-
-});
-
 routes.post('/users', _UserController2.default.store);
 routes.post('/sessions', _SessionController2.default.store);
 
@@ -36,6 +30,7 @@ routes.get('/providers', _ProviderController2.default.index);
 routes.get('/providers/:providerId/avaliable', _AvaliableController2.default.index);
 
 routes.post('/files', upload.single('file'), _FileController2.default.store);
+// routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/appointments', _AppointmentController2.default.store);
 routes.get('/appointments', _AppointmentController2.default.index);
