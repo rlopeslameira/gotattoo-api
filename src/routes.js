@@ -16,6 +16,9 @@ import multerConfig from './config/multer';
 const routes = new Router();
 const upload = multer(multerConfig);
 
+routes.get('/', (req, res) => {
+  res.send('Server UP');
+});
 routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
