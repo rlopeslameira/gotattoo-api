@@ -1,5 +1,5 @@
 import File from '../models/File';
-import sharp from "sharp";
+// import sharp from "sharp";
 import { resolve } from 'path';
 import fs from 'fs';
 
@@ -9,15 +9,15 @@ class FileController {
 
     const path = `small-${filename}`;
 
-    await sharp(req.file.path)
-      .resize(800)
-      .jpeg({ quality: 50 })
-      .toFile(
-        // resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
-        resolve(req.file.destination, path)
-      );
+    // await sharp(req.file.path)
+    //   .resize(800)
+    //   .jpeg({ quality: 50 })
+    //   .toFile(
+    //     // resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
+    //     resolve(req.file.destination, path)
+    //   );
 
-    fs.unlinkSync(req.file.path);
+    // fs.unlinkSync(req.file.path);
 
     const dest = await File.create({ name, path });
 
