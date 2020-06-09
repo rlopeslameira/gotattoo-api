@@ -1,10 +1,11 @@
-// Host Heroku Free plan
+require('dotenv/config');
+
 module.exports = {
-  dialect: 'mysql',
-  host: 'mysql.drconsultoria.uni5.net',
-  username: 'drconsultoria',
-  password: '1drconsultoria',
-  database: 'drconsultoria',
+  dialect: process.env.DIALECT,
+  host: process.env.DB_HOST,
+  username: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   define: {
     timestamps: true,
     underscored: true,
