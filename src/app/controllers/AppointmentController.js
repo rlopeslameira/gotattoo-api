@@ -43,7 +43,7 @@ class AppointmentController {
       return res.status(400).json({ error: 'Validation error.' })
     }
 
-    const { user_id, date, tattoo_id, detalhes } = req.body;
+    const { user_id, date, tattoo_id, details } = req.body;
 
     /**
      * Check for past date
