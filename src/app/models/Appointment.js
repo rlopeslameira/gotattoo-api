@@ -18,7 +18,7 @@ class Appointment extends Model{
           return isBefore(new Date(), subHours(this.date, 2));
         }
       },
-      detalhes: {
+      details: {
         type: Sequelize.TEXT,
       }
     }, {

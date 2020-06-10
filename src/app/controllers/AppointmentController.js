@@ -16,7 +16,7 @@ class AppointmentController {
       order: ['date'],
       limit: 20,
       offset: (page - 1) * 20,
-      attributes: ['id', 'date', 'past', 'cancelable', 'detalhes'],
+      attributes: ['id', 'date', 'past', 'cancelable', 'details'],
       include: [{
         model: User,
         as: 'provider',
@@ -74,7 +74,7 @@ class AppointmentController {
       user_id,
       tattoo_id,
       date: hourStart,
-      detalhes,
+      details,
     });
 
     /**
