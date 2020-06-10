@@ -1,8 +1,8 @@
 module.exports = {
   apps : [
       {
-        name: "gotattoo-web",
-        script: "./server.js",
+        name: "gotattoo-api",
+        script: "/root/gotattoo-api/dist/server.js",
         watch: true,
         env: {
           "APP_URL": "https://gotattoo.app/api/",
