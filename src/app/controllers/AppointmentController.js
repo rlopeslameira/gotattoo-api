@@ -16,7 +16,7 @@ class AppointmentController {
       order: ['date'],
       limit: 20,
       offset: (page - 1) * 20,
-      attributes: ['id', 'date', 'past', 'cancelable'],
+      attributes: ['id', 'date', 'past', 'cancelable', 'detalhes'],
       include: [{
         model: User,
         as: 'provider',
@@ -43,7 +43,7 @@ class AppointmentController {
       return res.status(400).json({ error: 'Validation error.' })
     }
 
-    const { user_id, date, tattoo_id } = req.body;
+    const { user_id, date, tattoo_id, detalhes } = req.body;
 
     /**
      * Check for past date
@@ -74,6 +74,7 @@ class AppointmentController {
       user_id,
       tattoo_id,
       date: hourStart,
+      detalhes,
     });
 
     /**
