@@ -1,3 +1,5 @@
+require('dotenv/config');
+
 // Host Heroku Free plan
 module.exports = {
   dialect: process.env.DB_DIALECT,

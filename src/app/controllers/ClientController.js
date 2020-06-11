@@ -1,4 +1,4 @@
-import User from '../models/User';
+import Client from '../models/Client';
 
 import * as Yup from 'yup';
 
@@ -13,16 +13,16 @@ class ClientController {
       return res.status(400).json({error: 'Validation error.'})
     }
 
-    const userExist = await User.findOne({
+    const clientExist = await Client.findOne({
       where: { name: req.body.name }
     })
 
-    if (userExist){
-      const { id, name } = userExist;
+    if (clientExist){
+      const { id, name } = clientExist;
       return res.json({id, name});
     }
 
-    const {id, name} = await User.create(req.body);
+    const {id, name} = await Client.create(req.body);
 
     return res.json({id, name});
   }
