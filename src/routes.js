@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import multer from 'multer';
-import sharp from "sharp";
-import fs from 'fs';
-import { extname, resolve } from 'path';
-import File from './app/models/File';
+// import sharp from "sharp";
+// import fs from 'fs';
+// import { extname, resolve } from 'path';
+// import File from './app/models/File';
 
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
@@ -35,32 +35,9 @@ routes.post('/clients', ClientController.store);
 routes.get('/providers', ProviderController.index);
 routes.get('/providers/:providerId/avaliable', AvaliableController.index);
 
-const uploadFile = upload.single('file');
+// const uploadFile = upload.single('file');
 
-routes.post('/files', uploadFile , (req, res) => {
-  uploadFile( req, res, async ( err ) => {
-    if ( err ) 
-      return console.log( err );
-
-    const { originalname: name, filename } = req.file;
-
-    const path = `small-${filename}`;
-
-    await sharp(req.file.path)
-      .resize(800)
-      .jpeg({ quality: 50 })
-      .toFile(
-        // resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
-        resolve(req.file.destination, path)
-      );
-
-    fs.unlinkSync(req.file.path);
-
-    const dest = await File.create({ name, path });
-
-    return res.json(dest);
-  });
-});
+routes.post('/files', upload.single('file'), FileController.store);
 // routes.post('/files', upload.single('file'), FileController.store);
 
 routes.post('/appointments', AppointmentController.store);
