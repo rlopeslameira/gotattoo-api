@@ -1,4 +1,3 @@
-import auth from "../../config/auth";
 import jwt from 'jsonwebtoken';
 import authConfig from '../../config/auth';
 import { promisify } from 'util';
