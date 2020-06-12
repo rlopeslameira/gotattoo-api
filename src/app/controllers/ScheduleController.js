@@ -3,9 +3,6 @@ import Client from '../models/Client';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
 import { startOfDay } from 'date-fns';
-import { Op } from 'sequelize';
-
-import Util from '../../lib/Util';
 
 class ScheduleController {
   async index(req, res){
