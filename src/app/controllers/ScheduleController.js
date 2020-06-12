@@ -2,7 +2,7 @@ import User from '../models/User';
 import Client from '../models/Client';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
-import { startOfDay } from 'date-fns';
+import { startOfDay, parseISO } from 'date-fns';
 
 class ScheduleController {
   async index(req, res){
