@@ -5,23 +5,28 @@ import fs from 'fs';
 
 class FileController {
   async store(req, res) {
-    const { originalname: name, filename } = req.file;
+    try
+    {
+      const { originalname: name, filename } = req.file;
 
-    const path = `small-${filename}`;
+      const path = `small-${filename}`;
 
-    await sharp(req.file.path)
-      .resize(800)
-      .jpeg({ quality: 50 })
-      .toFile(
-        // resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
-        resolve(req.file.destination, path)
-      );
+      await sharp(req.file.path)
+        .resize(800)
+        .jpeg({ quality: 50 })
+        .toFile(
+          // resolve(__dirname, '..', '..', '..', 'tmp', 'uploads')
+          resolve(req.file.destination, path)
+        );
 
-    fs.unlinkSync(req.file.path);
+      fs.unlinkSync(req.file.path);
 
-    const dest = await File.create({ name, path });
+      const dest = await File.create({ name, path });
 
-    return res.json(dest);
+      return res.json(dest);
+    }catch (err) {
+      return res.json(err);
+    }
   }
 }
 
