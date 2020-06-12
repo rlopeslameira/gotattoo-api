@@ -2,8 +2,8 @@ import User from '../models/User';
 import Client from '../models/Client';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
-
-import { format, parseISO, setSeconds, setMinutes, setHours, setMilliseconds, subHours } from 'date-fns';
+import { startOfDay } from 'date-fns';
+import { Op } from 'sequelize';
 
 import Util from '../../lib/Util';
 
@@ -21,9 +21,7 @@ class ScheduleController {
 
     const { date } = req.query;
 
-    const parseDate = Util.formatDate(date);
-    
-    console.log(parseDate);
+    const parseDate = startOfDay(parseISO(date));    
 
     const appointments = await Appointment.findAll({
       where: {
